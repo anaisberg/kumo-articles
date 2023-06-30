@@ -1,9 +1,9 @@
 ---
 published: false
-title: 'My first sync article'
+title: 'Understand the AWS SSO login'
 cover_image:
 description: 'Description of the article'
-tags: tag1, tag2, tag3
+tags: aws, sso, tag3
 series:
 canonical_url:
 ---

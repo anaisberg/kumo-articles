@@ -1,3 +1,3 @@
-interface A {
+interface Anais {
   hello: string;
 }
