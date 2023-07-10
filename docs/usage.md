@@ -9,7 +9,7 @@
 4. Open your console and paste `$('div[data-article-id]').getAttribute('data-article-id')`
 5. Copy/paste the result in a new object in `./dev-to-git.json`
 6. Write your article in the folder you indicate as `relativePathToArticle`
-7. Merge on `master` => The article will be sync automatically
+7. Merge on `master` => The article will be synced automatically
 
 ## How to publish an article to dev.to
 
