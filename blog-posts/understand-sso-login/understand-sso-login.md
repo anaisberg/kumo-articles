@@ -1,16 +1,12 @@
 ---
 published: false
 title: 'Understand the AWS SSO login configuration'
-cover_image:
+cover_image: https://raw.githubusercontent.com/anaisberg/kumo-articles/master/blog-posts/understand-sso-login/assets/sessions-2.jpg
 description: 'Description of the article'
 tags: aws, sso, tag3
 series:
 canonical_url: understand-aws-sso-configuration
 ---
-
-# Understanding the AWS SSO login
-
-![Tennis court](./assets/sessions-2.jpg 'Tennis court session')
 
 # What is SSO? 
 
