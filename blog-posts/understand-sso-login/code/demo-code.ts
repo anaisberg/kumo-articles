@@ -1,3 +1,0 @@
-interface Anais {
-  hello: string;
-}
