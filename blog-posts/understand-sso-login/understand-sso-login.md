@@ -2,19 +2,23 @@
 published: false
 title: 'Understand the AWS SSO login configuration'
 cover_image: https://raw.githubusercontent.com/anaisberg/kumo-articles/master/blog-posts/understand-sso-login/assets/sessions-2.jpg
-description: 'Description of the article'
-tags: aws, sso, tag3
+description: 'Gain confidence on setting up, configuring and using the AWS SSO'
+tags: aws, sso, tag3, tutorial
 series:
 canonical_url: understand-aws-sso-configuration
 ---
 
-# What is SSO? 
+## TL;DR
+
+AWS SSO makes it easy for you to switch between profiles. In this article, you'll learn how to easily set up your AWS profiles, to switch between them, and use the automatic SSO login! Moreover, we will focus on the new SSO sessions parameters.
+
+## What is SSO? 
 
 AWS Single Sign-On (SSO) is a service provided by AWS that simplifies the management of user access to multiple AWS accounts and applications. 
 
 By providing a single set of credentials for accessing multiple AWS accounts and services. Users can log in once using their organization's identity provider (IdP) credentials and then access multiple AWS accounts without the need to enter separate credentials each time.
 
-## How did we do before SSO?
+### How did we do before SSO?
 
 Before using SSO, there were 3 main ways to log into AWS :
 
@@ -26,7 +30,7 @@ These methods required users to manage separate sets of credentials for differen
 
 AWS Single Sign-On (SSO) simplifies this process by enabling centralized user management. It was made available in the `aws-cli` with the V2.
 
-## Why do we use SSO?
+### Why do we use SSO?
 
 The main advantages are: 
 
@@ -38,7 +42,7 @@ The main advantages are:
 
 *Overall, AWS SSO simplifies the management of user access to AWS accounts and applications, enhances security, and provides a better user experience by enabling single sign-on functionality.*
 
-## How to configure a profile?
+### How to configure a profile?
 You need to have a user account within an organization. Go to the start url of the access portal and sign in. (It looks like this: `https://sso-portal.awsapps.com/start`). Once you're signed in with your unique identifier, you will have access to all the accounts the organization has set for you.
 
 Now you can configure your profile locally. The most common way to do so is with the `aws-cli` command
@@ -48,7 +52,7 @@ $ aws configure sso
 
 It will save your profile configuration in the `~/.aws/config` file.
 
-## What are the different parameters?
+### What are the different parameters?
 
 In aws-cli v1, a configuration file looks like this:
 
@@ -71,11 +75,11 @@ You can have different profiles that point to the same account. However, the par
 - `output`: The default output format for the commands.
 
 Most of you may already be used to all of this, as it is considered a legacy configuration. Let's see what changed.
-# New configuration: SSO introduces sso-sessions
+## New configuration: SSO introduces sso-sessions
 
 In the 2.90 release of the aws-cli, AWS introduced sessions to manage our SSO profiles. Now, we do not need to refresh our tokens periodically when they expire. The refreshed tokens are automatically fetched by our SDK or tool.
 
-## What changed in the new configuration: sso-sessions
+### What changed in the new configuration: sso-sessions
 
 We can now add sessions in our SSO configuration file. A session is linked to a start url and the region where the start url is hosted (different from the url where your account is hosted).
 
@@ -85,7 +89,7 @@ Another feature of the session is that you can restrict the access scope of the 
 
 So for the same start url, you could have a session allowing the profiles default access to your accounts, and one session restricting its profiles to only Read Access, e.g. (use sso access scope)
 
-## What are the new settings
+### What are the new settings
 Now, in your config file, in addition to having the regular properties listed above, you can have a session linked to a profile. The start url, region, and registration scope are linked to the session, to better reflect what is going on in aws.
 
 ```text
@@ -107,7 +111,7 @@ Let's break it down:
 - There is a new parameter,  `sso_registration_scopes` that grants the scopes allowed to an application. It is the minimum access the accounts need to have to retrieve the access tokens. There is still very little documentation about it, [here is what AWS provides](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-config-sso_registration_scopes).
 
 
-## Let's add a new profile with a session
+### Let's add a new profile with a session
 This time, we are going to add a profile that only has read access to the account. 
 
 ```bash
@@ -164,7 +168,7 @@ To know which profile you are using, you can run
 aws sts get-caller-identity
 ```
 
-# Take-aways
+## Take-aways
 - AWS SSO makes it easy for you to switch between profiles and to make the best use of the start url features. You don't have to deal with access keys anymore!
 - SSO sessions add one level of abstraction to have different access patterns with the same organization.
 - Overall, the commands to set a profile and session do not change a lot, but if you decide to use sso sessions, make sure that the non-native AWS tools you use are maintained and have integrated the changes.
