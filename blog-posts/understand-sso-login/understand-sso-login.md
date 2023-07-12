@@ -20,11 +20,7 @@ By providing a single set of credentials for accessing multiple AWS accounts and
 
 ### How did we do before SSO?
 
-Before using SSO, there were 3 main ways to log into AWS :
-
-1. **AWS Management Console:** using the user’s account credentials (email + password).
-2. **AWS Command Line Interface (CLI):** using the CLI configured with their AWS access key ID and secret access key, from IAM.
-3. **AWS SDKs and APIs:** by providing the AWS access key ID and secret access key in the code or using a configuration file.
+Before using SSO, you could log into AWS by using credentials composed of either user/password (in the Management Console) or access_key/secret_key (with the CLI or different SDKs and APIs).
 
 These methods required users to manage separate sets of credentials for different AWS accounts and regions. Each time they accessed a different account or region, they had to provide the appropriate credentials.
 
@@ -36,7 +32,7 @@ The main advantages are:
 
 1. **Simplified Access Management:** administrators can define user permissions centrally and apply them across multiple accounts, making it easier to grant or revoke access as needed.
 2. **Centralized User Management**: administrators can manage user identities, roles, and permissions from a single location, making it efficient to handle user onboarding, offboarding, and role changes.
-3. **Integration with Identity Providers:** it allows organizations to leverage their existing identity systems and enable users to log in using their familiar corporate credentials. (IdP: Microsoft Active Directory, Okta, and Azure Active Directory, …).
+3. **Integration with Identity Providers:** it allows organizations to leverage their existing identity systems and enable users to log in using their familiar corporate credentials. (IdP: Microsoft Active Directory, Okta, Azure Active Directory, …).
 4. **Single Sign-On Experience:** once authenticated with their organization's IdP, users can access various AWS accounts and applications without needing to re-enter credentials, improving productivity and reducing authentication fatigue.
 5. **Increased Security:** reduces the risk of password-related issues. Users don't need to remember multiple passwords, reducing the likelihood of weak or reused passwords. Centralized access management also ensures the consistent application of security policies and allows for easier auditing and monitoring of user activity.
 
@@ -47,14 +43,14 @@ You need to have a user account within an organization. Go to the start url of t
 
 Now you can configure your profile locally. The most common way to do so is with the `aws-cli` command
 ```bash
-$ aws configure sso
+aws configure sso
 ```
 
 It will save your profile configuration in the `~/.aws/config` file.
 
 ### What are the different parameters?
 
-In aws-cli v1, a configuration file looks like this:
+AWS added support for SSO with CLI v2. A configuration file looks like this:
 
 ```
 [profile dev]
@@ -158,12 +154,13 @@ sso_registration_scopes = sso:account:access
 ### Tips
 You can you this profile by running. The command will automatically open an authorization page in your browser and fill in the authorization code.
 ```
-$ aws sso login --profile test-profile
-
-// to log out
-$ aws sso logout
+aws sso login --profile test-profile
 ```
-To know which profile you are using, you can run
+To log out:
+```
+aws sso logout
+```
+To know which profile you are using, you can run:
 ```bash
 aws sts get-caller-identity
 ```
