@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: 'Understand the AWS SSO login configuration'
 cover_image: https://raw.githubusercontent.com/anaisberg/kumo-articles/master/blog-posts/understand-sso-login/assets/sessions-2.jpg
 description: 'Gain confidence on setting up, configuring and using the AWS SSO'
