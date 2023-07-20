@@ -1,11 +1,10 @@
 ---
-published: false
+published: true
 title: 'Understand the AWS SSO login configuration'
 cover_image: https://raw.githubusercontent.com/anaisberg/kumo-articles/master/blog-posts/understand-sso-login/assets/sessions-2.jpg
 description: 'Gain confidence on setting up, configuring and using the AWS SSO'
 tags: aws, sso, tag3, tutorial
 series:
-canonical_url: understand-aws-sso-configuration
 ---
 
 ## TL;DR
@@ -32,7 +31,7 @@ The main advantages are:
 
 1. **Simplified Access Management:** administrators can define user permissions centrally and apply them across multiple accounts, making it easier to grant or revoke access as needed.
 2. **Centralized User Management**: administrators can manage user identities, roles, and permissions from a single location, making it efficient to handle user onboarding, offboarding, and role changes.
-3. **Integration with Identity Providers:** it allows organizations to leverage their existing identity systems and enable users to log in using their familiar corporate credentials. (IdP: Microsoft Active Directory, Okta, Azure Active Directory, …).
+3. **Integration with Identity Providers (IdP):** it allows organizations to leverage their existing identity systems and enable users to log in using their familiar corporate credentials. (IdP: Microsoft Active Directory, Okta, Azure Active Directory, …).
 4. **Single Sign-On Experience:** once authenticated with their organization's IdP, users can access various AWS accounts and applications without needing to re-enter credentials, improving productivity and reducing authentication fatigue.
 5. **Increased Security:** reduces the risk of password-related issues. Users don't need to remember multiple passwords, reducing the likelihood of weak or reused passwords. Centralized access management also ensures the consistent application of security policies and allows for easier auditing and monitoring of user activity.
 
@@ -73,23 +72,23 @@ You can have different profiles that point to the same account. However, the par
 - `region`: All the commands made through this profile will be sent to this region.
 - `output`: The default output format for the commands.
 
-Most of you may already be used to all of this, as it is considered a legacy configuration. Let's see what changed.
+You may already be used to this if you used the previous legacy configuration. Let's see what changed.
 
 ## New configuration: SSO introduces sso-sessions
 
-In the 2.90 release of the aws-cli, AWS introduced sessions to manage our SSO profiles. Now, we do not need to refresh our tokens periodically when they expire. The refreshed tokens are automatically fetched by our SDK or tool.
+In the 2.90 release of the aws-cli, AWS introduced sessions to manage our SSO profiles. Now, we only have one set of credentials for our session (instead of one set per profile) and [we do not need to refresh our tokens periodically when they expire](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html). The refreshed tokens are automatically fetched by our SDK or tool (ie [AWS SDK](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/sso.html#sso-generate-use-token-overview)).
 
 ### What changed in the new configuration: sso-sessions
 
 We can now add sessions in our SSO configuration file. A session is linked to a start url and the region where the start url is hosted (different from the url where your account is hosted).
 
-Then for one session, you can have multiple profiles. I can have a single session for my project start url, and different profiles linked to this session (so I have to configure only the session details once)
+Then for one session, you can have multiple profiles. I can have a single session for my project start url, and different profiles linked to this session (so I have to configure only the session details once). 
 
-Another feature of the session is that you can restrict the access scope of the profiles. The default config is to grant the profile the access set to your listed accounts on the start url.
+The credentials are now stored at the session level, instead of having one set of credentials per profile.
 
-So for the same start url, you could have a session allowing the profiles default access to your accounts, and one session restricting its profiles to only Read Access, e.g. (use sso access scope)
+Another feature of the session is that you can restrict the access scope of the profiles. For the same start url, you could have a session allowing the profiles default access to your accounts, and one session restricting its profiles to only Read Access (e.g.). The default config is to grant the profile the access set to your listed accounts on the start url. 
 
-### What are the new settings
+### What is in the new configuration file
 
 Now, in your config file, in addition to having the regular properties listed above, you can have a session linked to a profile. The start url, region, and registration scope are linked to the session, to better reflect what is going on in aws.
 
@@ -184,3 +183,4 @@ aws sts get-caller-identity
 - AWS SSO makes it easy for you to switch between profiles and to make the best use of the start url features. You don't have to deal with access keys anymore!
 - SSO sessions add one level of abstraction to have different access patterns with the same organization.
 - Overall, the commands to set a profile and session do not change a lot, but if you decide to use sso sessions, make sure that the non-native AWS tools you use are maintained and have integrated the changes.
+- An easy tool that supports SSO to manage your profiles is [Granted](https://www.granted.dev/), I will write a follow-up article on it!
