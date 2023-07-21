@@ -22,7 +22,7 @@ As a quick setup to get started you can export them as environment variables so 
 ```bash
 export AWS_ACCESS_KEY_ID=<your-key-here>
 export AWS_SECRET_ACCESS_KEY=<your-secret-key-here>
-# AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are now available 
+# AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are now available
 # for serverless to use
 
 serverless deploy
@@ -108,10 +108,9 @@ It was supposed to be a temporary plug-in
 
 ## Using AWS SSO with serverless framework
 
-AWS Single Sign-On (SSO) integration with the Serverless Framework is not directly supported out of the box. 
+AWS Single Sign-On (SSO) integration with the Serverless Framework is not directly supported out of the box.
 
-However, it is possible to configure the Serverless Framework to work with AWS SSO by leveraging the `serverless-better-credentials` plugin. 
-AWS SSO profiles configured to work with the AWS CLI should "just work" when this plugin is enabled. This includes prompting and attempting to automatically open the SSO authorization page in your default browser when the credentials require refreshing.
+However, it is possible to configure the Serverless Framework to work with AWS SSO by leveraging the `serverless-better-credentials` plugin. AWS SSO profiles configured to work with the AWS CLI should "just work" when this plugin is enabled. This includes prompting and attempting to automatically open the SSO authorization page in your default browser when the credentials require refreshing.
 
 Full details about how to configure AWS SSO can be found in the [AWS CLI documentation](https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html).
 
@@ -119,23 +118,23 @@ Once you have configured your SSO profile(s), you need to add the serverless-bet
 
 **Specify the AWS Profile for Serverless Framework**
 
-You need to tell the framework which profile you want to use to deploy your project. There are different ways of providing your profile credentials to the Serverless Framework. 
+You need to tell the framework which profile you want to use to deploy your project. There are different ways of providing your profile credentials to the Serverless Framework.
 
 Credentials are resolved in this order by the Serverless Framework currently uses:
 
 1. from profile: cli flag `--aws-profile`
 2. from profile: env `AWS_${STAGE}_PROFILE`
 3. from env - `AWS_${STAGE}_X`
-4. from profile - `AWS_PROFILE` 
+4. from profile - `AWS_PROFILE`
 5. from env - `AWS_X`
 6. from profile - serverless.yml > `provider.profile` (unless --aws-profile is specified)
-    
-    ```yaml
-    provider:
-      name: aws
-      profile: my-profile
-    ```
-    
+
+   ```yaml
+   provider:
+     name: aws
+     profile: my-profile
+   ```
+
 7. from config - serverless.yml > `provider.credentials`
 8. from profile - `AWS_DEFAULT_PROFILE` || `default`
 
@@ -177,7 +176,7 @@ The issue is that the serverless-better-credential plugin only knows how to pars
 
 ### **Current quick fix**
 
-The immediate solution is not to provide a session name when configuring your profile. This will default to your configuration file looking like the v1 config file. 
+The immediate solution is not to provide a session name when configuring your profile. This will default to your configuration file looking like the v1 config file.
 
 ```bash
 $ aws configure sso

@@ -4,7 +4,7 @@ https://dev.to/\schliengeranais
 
 ## Blog posts
 
-- [\<BLOG POST NAME\>](https://dev.to/\<BLOG POST LINK\>)
+- [Understand the AWS SSO login configuration](https://dev.to/kumo/understand-the-aws-sso-login-configuration-4am7)
 
 ## Documentation
 

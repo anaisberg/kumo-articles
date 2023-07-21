@@ -82,11 +82,11 @@ In the 2.90 release of the aws-cli, AWS introduced sessions to manage our SSO pr
 
 We can now add sessions in our SSO configuration file. A session is linked to a start url and the region where the start url is hosted (different from the url where your account is hosted).
 
-Then for one session, you can have multiple profiles. I can have a single session for my project start url, and different profiles linked to this session (so I have to configure only the session details once). 
+Then for one session, you can have multiple profiles. I can have a single session for my project start url, and different profiles linked to this session (so I have to configure only the session details once).
 
 The credentials are now stored at the session level, instead of having one set of credentials per profile.
 
-Another feature of the session is that you can restrict the access scope of the profiles. For the same start url, you could have a session allowing the profiles default access to your accounts, and one session restricting its profiles to only Read Access (e.g.). The default config is to grant the profile the access set to your listed accounts on the start url. 
+Another feature of the session is that you can restrict the access scope of the profiles. For the same start url, you could have a session allowing the profiles default access to your accounts, and one session restricting its profiles to only Read Access (e.g.). The default config is to grant the profile the access set to your listed accounts on the start url.
 
 ### What is in the new configuration file
 
