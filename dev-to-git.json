@@ -2,5 +2,9 @@
   {
     "id": 1522216,
     "relativePathToArticle": "./blog-posts/understand-sso-login/understand-sso-login.md"
+  },
+  {
+    "id": 1677427,
+    "relativePathToArticle": "./blog-posts/scaling-aws-stacks-sls-framework/article.md"
   }
 ]
