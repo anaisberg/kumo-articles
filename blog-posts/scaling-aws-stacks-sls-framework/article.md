@@ -11,7 +11,7 @@ series:
 
 AWS provides a robust infrastructure for deploying serverless applications using AWS CloudFormation. However, it's not uncommon to encounter resource limits when working on large serverless projects. One way to tackle this challenge is by splitting your CloudFormation stacks into smaller, more manageable units. AWS suggests themselves to use _nested stacks_ to overcome the 500-resource limit. In this article, we'll explore how to achieve this using the Serverless Framework and a plugin called `serverless-plugin-split-stacks`. We'll also discuss some tips and tricks to make the process smoother.
 
-Nested stacks are a safe way to address the resource limit wall whilst keeping the benefits of a single stack. The main benefit of a single stack is that you can deploy and rollback all resources at once. As nested stacks have a dependency to their parent stack, so if one of the nested stacks fails to deploy, the parent stack will roll back to its previous state. We keep an atomic behavior of our stack.
+Nested stacks are a safe way to address the resource limit wall whilst keeping the benefits of a single stack. The main benefit of a single stack is that you can deploy and rollback all resources at once. As nested stacks have a dependency to their parent stack, so if one of the nested stacks fails to deploy, the parent stack will roll back to its previous state. The nested stacks also share the output variables (such as ids or arn). We keep an atomic behavior of our stack.
 
 ### Prerequisites
 
@@ -56,7 +56,7 @@ custom: {
 
 - `perFunction`: Setting this to `true` would split the stack for each AWS Lambda function. Setting it to `false` keeps your structure manageable.
 - `perType`: If you want to split stacks based on resource types (e.g., DynamoDB tables, S3 buckets), set this to `true`.
-- `perGroupFunction`: This option is set to `true`, which splits stacks based on logical groupings of functions.
+- `perGroupFunction`: This option is set to `true`, which splits stacks equally based groupings of functions (the lambda and all its associated ressources, eg. IAM roles).
 - `nestedStackCount`: disabled if not specified ; it controls how many resources are deployed in parallel.
 - `stackConcurrency: number`: disabled if not specified ; it controls how many stacks are deployed in parallel.
 
@@ -66,7 +66,7 @@ Here is the tricky part. The plugin doesn't work with existing resources. You ca
 
 No worries, there is a workaround.
 
-If you have existing Lambdas, you need to rename them to follow the new structure. The easiest way is to suffix their names with an underscore `_`. For example, if you had a Lambda named `myFunction`, you can rename it to `myFunction_`.
+If you have existing Lambdas, you need to rename them to follow the new structure. The easiest way is to suffix their names with an underscore `_`. For example, if you had a Lambda named `myFunction`, you can rename it to `myFunction_`. You use any other suffix you like honestly, but the underscore is a good convention as it is easy to read and less bulky visually.
 
 Just like that, without being deleted, your lambdas are moved to the new stack.
 
@@ -127,7 +127,9 @@ Hitting the resource limit may be a sign that your application is becoming too c
 
 By splitting your AWS CloudFormation stacks using the `serverless-plugin-split-stacks`, you can overcome the 500-resource limit and manage your serverless applications more effectively. This approach not only makes your infrastructure more scalable but also eases the maintenance of your serverless projects as they grow.
 
-However, sub-stacks have their limits too and it does not mean you can grow them out indefinitely. Having to split your stacks is a sign that your application is becoming too complex and you should review your architecture.
+However, sub-stacks have their limits too and it does not mean you can grow them out indefinitely. They have the same resource limit as the main stack, and the more nested stacks you have, the longer your stack takes to deploy.
+
+Having to split your stacks is a sign that your application is becoming too complex and you should review your architecture. One way to change the way you split your stacks is to have a stack for each decoupled business entity. Or maybe a micro-service architecture is maybe not the good fit for your use case: you can look into hexagonal architectures for example.
 
 #### References
 
