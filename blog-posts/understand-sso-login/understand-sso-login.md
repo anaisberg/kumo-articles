@@ -92,7 +92,7 @@ Another feature of the session is that you can restrict the access scope of the 
 
 Now, in your config file, in addition to having the regular properties listed above, you can have a session linked to a profile. The start url, region, and registration scope are linked to the session, to better reflect what is going on in aws.
 
-```text
+```txt
 [profile dev-profile]
 sso_session = devto-article
 sso_account_id = 123456789011
@@ -137,7 +137,7 @@ CLI profile name [123456789011_ReadOnly]: test-profile
 
 Our configuration file now looks like this:
 
-```text
+```txt
 [profile dev-profile]
 sso_session = devto-article
 sso_account_id = 123456789011

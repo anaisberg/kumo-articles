@@ -27,7 +27,7 @@ Before we dive into the details, make sure you have the following in place:
 
 First, you need to install the `serverless-plugin-split-stacks` plugin. Navigate to your Serverless project directory and run the following command:
 
-```shell
+```bash
 npm install serverless-plugin-split-stacks --save-dev
 ```
 
@@ -35,13 +35,13 @@ npm install serverless-plugin-split-stacks --save-dev
 
 In your `serverless.ts` (or `serverless.yml`) file, add the plugin to the `plugins` section:
 
-```typescript
+```ts
  plugins: ['serverless-plugin-split-stacks'],
 ```
 
 and configure it under the `custom` section:
 
-```typescript
+```ts
 custom: {
   // ...
   splitStacks: {
@@ -73,7 +73,7 @@ Just like that, without being deleted, your lambdas are moved to the new stack.
 
 When deploying your Serverless project for the first time with these changes, ensure you set the `disableRollback` parameter to `false`. This way, if something goes wrong during deployment, AWS will not automatically roll back the changes. Here's how you can set it:
 
-```shell
+```bash
 sls deploy --disableRollback false
 ```
 
@@ -87,7 +87,7 @@ Let's illustrate these steps with a simple example. Consider a Serverless servic
 
 2. Configure your `serverless.ts` file:
 
-```yml
+```yaml
 service: my-serverless-app
 
 frameworkVersion: '>=2.50.0'
