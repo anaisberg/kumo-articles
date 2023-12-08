@@ -1,12 +1,10 @@
 ---
 published: true
-title: 'Bypass the 500 resource limit of AWS CloudFormation templates with Serverless Framework'
+title: 'Override the 500 resource limit of AWS CloudFormation templates with Serverless Framework'
 cover_image: https://raw.githubusercontent.com/anaisberg/kumo-articles/master/blog-posts/scaling-aws-stacks-sls-framework/assets/header.png
 description: "A comprehensive guide to efficiently scale your services and workaround AWS CloudFormation's 500 resource limitation with Serverless Framework."
-tags: aws, tutorial, cloudformation, serverless, serverless-framework
+tags: aws, tutorial, cloudformation, serverless
 ---
-
-# Override the 500 resource limit of AWS CloudFormation templates with Serverless Framework
 
 AWS provides a robust infrastructure for deploying serverless applications using AWS CloudFormation. However, it's not uncommon to encounter resource limits when working on large serverless projects. One way to tackle this challenge is by splitting your CloudFormation stacks into smaller, more manageable units. AWS suggests themselves to use _nested stacks_ to overcome the 500-resource limit. In this article, we'll explore how to achieve this using the Serverless Framework and a plugin called `serverless-plugin-split-stacks`. We'll also discuss some tips and tricks to make the process smoother.
 
