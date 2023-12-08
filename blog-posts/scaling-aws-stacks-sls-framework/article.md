@@ -2,9 +2,8 @@
 published: true
 title: 'Bypass the 500 resource limit of AWS CloudFormation templates with Serverless Framework'
 cover_image: https://raw.githubusercontent.com/anaisberg/kumo-articles/master/blog-posts/scaling-aws-stacks-sls-framework/assets/header.png
-description: 'A comprehensive guide to efficiently scale your services and workaround AWS CloudFormation's 500 resource limitation with Serverless Framework.'
+description: "A comprehensive guide to efficiently scale your services and workaround AWS CloudFormation's 500 resource limitation with Serverless Framework."
 tags: aws, tutorial, cloudformation, serverless, serverless-framework
-series:
 ---
 
 # Override the 500 resource limit of AWS CloudFormation templates with Serverless Framework
